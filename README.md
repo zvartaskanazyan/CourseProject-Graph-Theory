@@ -1,5 +1,5 @@
 # CourseWork-Graph-Theory
-Determine if sequence is graphical and create the corresponding graph.
+Determine if the given sequence is graphical and create the graph with minimum vertices if the sequence is graphical.
 
 Used the Havel–Hakimi theorem that says we can test if a sequence is graphical by the following procedure:
 
