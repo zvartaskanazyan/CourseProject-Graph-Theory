@@ -1,6 +1,4 @@
-#include "pch.h"
 #include "Exception.h"
-#include "Sequence.h"
 #include "Graph.h"
 #include <iostream> 
 #include <deque>
@@ -28,7 +26,6 @@ int main()
 
 	try {
 		res.CreateGraph(v1);
-
 		res.DisplayGraph();
 	}
 	catch (const Creation& exp)

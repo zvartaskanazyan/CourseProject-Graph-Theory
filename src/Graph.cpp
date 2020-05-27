@@ -1,8 +1,9 @@
-#include "pch.h"
 #include "Graph.h"
-#include "Sequence.h"
+
 #include "Exception.h"
-#include <iostream>
+#include <algorithm> 
+#include <iostream> 
+#include <deque>
 
 Graph::Graph(unsigned ver):vertex(ver)
 {
@@ -33,6 +34,24 @@ void Graph::AddEdge(size_t& src, size_t& dest)
 	array[dest].head = newNode;			
 }
 
+bool Graph::is_graphic_sequence(std::deque<int> degreeSequence) {
+
+	sort(degreeSequence.begin(), degreeSequence.end(), std::greater<int>());
+	
+	if (degreeSequence.front() > degreeSequence.size() && degreeSequence.back() < 0)
+		return false;
+	if (!degreeSequence.front())
+		return true;
+
+	int front = degreeSequence.front();
+	degreeSequence.pop_front();
+	for (int i = 0; i < front; ++i)
+	{
+		--degreeSequence[i];
+	}
+	return is_graphic_sequence(degreeSequence);
+}
+
 void Graph::CreateGraph(std::deque<int>& degSeq)
 {
 	if (is_graphic_sequence(degSeq))
@@ -55,7 +74,6 @@ void Graph::CreateGraph(std::deque<int>& degSeq)
 		throw  Creation();
 }
 
-
 void Graph::DisplayGraph()
 {
 	for (size_t index = 0; index < vertex; ++index)
@@ -63,20 +81,15 @@ void Graph::DisplayGraph()
 		AdjListNode* tmp = array[index].head;		
 		std::cout << "\n Adjacency list of vertex " << index << "\n head " << index;
 		
-		if(tmp != nullptr)
-		{
+		if(tmp != nullptr){
 			while (tmp)
 			{
 				std::cout << "-> " << tmp->data;
 				tmp = tmp->next;
 			}
-		}
-
-		else
-		{
+		} else {
 			std::cout <<"-> null" <<std::endl;
 		}
-
 		std::cout << std::endl;
 	}
 }
